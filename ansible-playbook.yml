@@ -12,5 +12,5 @@
       apt_key:
         url: https://download.docker.com/linux/ubuntu/gpg
         state: present
-        chech_mode: true
+      check_mode: true
                 
