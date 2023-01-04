@@ -7,3 +7,10 @@
       ansible.builtin.copy:
         src: hostfile.log
         dest: /home/jester
+
+    - name: Add Docker GPG apt Key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+        chech_mode: true
+                
