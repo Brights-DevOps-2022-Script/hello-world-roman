@@ -5,7 +5,8 @@ pipeline {
         }
     }
     environment {
-    ANSIBLE_KEY = credentials('ansible_VM')   
+    ANSIBLE_KEY = credentials('ansible_VM')  
+    ANSIBLE_HOST_KEY_CHECKING = false 
     }
     stages {
         stage('build') {
@@ -16,7 +17,8 @@ pipeline {
                 sh "ansible-playbook --version"
                 sh "ansible-galaxy --version"
                 sh "ansible-galaxy collection install -r requirements.yml"
-                sh "ansible-playbook -i list.host --private-key=$ANSIBLE_KEY ansible-playbook.yml"
+                sh "apk add --update --no-cache openssh sshpass"
+                sh "ansible-playbook -vvv -i list.host -e ansible_ssh_pass=$ANSIBLE_KEY_PSW --ssh-common-args='-o StrictHostKeyChecking=no' ansible-playbook.yml"
             }
         }
     }
