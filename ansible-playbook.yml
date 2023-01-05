@@ -17,6 +17,7 @@
         url: https://download.docker.com/linux/ubuntu/gpg #| sudo gpg  
   #URL and command taken from the offical docker documentation -> Install Docker on Ubunut  
         keyring: /etc/apt/keyrings
+        
     - name: add Docker Repository
       ansible-builtin.apt_repository:
         repo: dep https://download.docker.com/linux/ubuntu focal stable
