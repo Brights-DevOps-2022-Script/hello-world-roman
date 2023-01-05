@@ -10,10 +10,14 @@
           - gnupg
           - lsb-release
         state: latest             #ensures that the latest version is installed: default="present"
-        update_cache: true 
+        update_cache: true
+        
     - name: install gpg key 
       ansible.builtin.apt_key:
         url: https://download.docker.com/linux/ubuntu/gpg #| sudo gpg  
   #URL and command taken from the offical docker documentation -> Install Docker on Ubunut  
         keyring: /etc/apt/keyrings
-        
+    - name: add Docker Repository
+      ansible-builtin.apt_repository:
+        repo: dep https://download.docker.com/linux/ubuntu focal stable
+        check_mode: true
