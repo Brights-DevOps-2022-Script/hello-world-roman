@@ -21,5 +21,4 @@
     - name: add Docker Repository
       ansible.builtin.apt_repository:
         repo: dep https://download.docker.com/linux/ubuntu focal stable
-        check_mode: true
-        diff_mode: true
+      check_mode: true
