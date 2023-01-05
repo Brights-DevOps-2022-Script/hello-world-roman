@@ -1,20 +1,19 @@
-- name: Playbook
+- name: docker_playbook
   hosts: VM
-  
-  become: true
+  become: yes
   tasks:
-    - name: Copy file
-      ansible.builtin.copy:
-        src: hostfile.log
-        dest: /home/jester
-        
-    - name: install dependencies  #Just the name of the task
-      ansible.builtin.apt:        #Manages apt packages
+    - name: install docker dependencies
+      ansible.builtin.apt:
         name:                     #A list of package names. aliases: package, pgk
           - ca-certificates
           - curl
           - gnupg
           - lsb-release
         state: latest             #ensures that the latest version is installed: default="present"
-        update_cache: true
-        check_mode: true
+        update_cache: true 
+    - name: install gpg key 
+      ansible.builtin.apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg #| sudo gpg  
+  #URL and command taken from the offical docker documentation -> Install Docker on Ubunut  
+        keyring: /etc/apt/keyrings
+        
