@@ -1,0 +1,4 @@
+# Pull nginx, run nginx and a hello world html file. try to reach html in browser
+- hosts: all
+  become: true
+  tasks:
