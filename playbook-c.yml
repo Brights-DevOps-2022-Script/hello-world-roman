@@ -1,0 +1,9 @@
+- hosts: all
+  become: yes
+  vars:
+   fruit: "apple"
+   tasks:
+     - name: debug message
+       ansible.builtin.debug:
+        msg: "our fruit is {{ fruit }}"
+        verbosity: 2
