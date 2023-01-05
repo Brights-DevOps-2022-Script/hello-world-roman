@@ -1,14 +1,19 @@
 - name: Playbook
   hosts: VM
   
-  become: yes
+  become: true
   tasks:
     - name: Copy file
       ansible.builtin.copy:
         src: hostfile.log
         dest: /home/jester
-
-    - name: Add Docker GPG apt Key
-      apt_key:
-        url: https://download.docker.com/linux/ubuntu/gpg
-        state: present                
+        
+    - name: install dependencies  #Just the name of the task
+      ansible.builtin.apt:        #Manages apt packages
+        name:                     #A list of package names. aliases: package, pgk
+          - ca-certificates
+          - curl
+          - gnupg
+          - lsb-release
+        state: latest             #ensures that the latest version is installed: default="present"
+        update_cache: true             
