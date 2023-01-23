@@ -1,4 +1,4 @@
-- hosts: vm
+- hosts: all
   name: install jenkins on VM
   become: true
   tasks:
