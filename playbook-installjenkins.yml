@@ -9,13 +9,8 @@
     apt: name=default-jdk state=present
   - name: Add an Apt singing key
     ansible.builtin.apt_key: 
-      url: https://pkg.jenkins.io/debian-stable/jenkins.io.key
       state: present
-      keyring: /usr/share/keyrings/jenkins-keyring.asc
-  - name: Add Jenkins Repository
-    apt_repository:
-      repo: deb https://pkg.jenkins.io/debian-stable binary/
-      state: present
+      url: https://pkg.jenkins.io/redhat-stable/jenkins.io.key
   - name: Install Jenkins
     apt: name=jenkins state=present
   - name: Start Jenkins Service
