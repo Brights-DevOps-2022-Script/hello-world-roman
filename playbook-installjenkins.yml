@@ -7,14 +7,9 @@
     apt: update_cache=yes
   - name: Install Java
     apt: name=default-jdk state=present
-  # - name: Ensure gpp key is imported
-  #   apt_key:
-  #     state: present
-  #     url: https://download.example.com/linux/ubuntu/gpg
-  #     dest: /usr/share/keyrings/jenkins-keyring.asc
   - name: Add an Apt singing key
     ansible.builtin.apt_key: 
-      url: https://download.example.com/linux/ubuntu/gpg
+      url: https://pkg.jenkins.io/debian-stable/jenkins.io.key
       state: present
       keyring: /usr/share/keyrings/jenkins-keyring.asc
   - name: Add Jenkins Repository
