@@ -1,70 +1,31 @@
-- hosts: all
-  name: install jenkins on VM
+- name: playbook_Jenkins.yml
+  hosts: all
   become: true
-  tasks:
-    - name: install dependencies
-      ansible.builtin.apt:
-        name: openjdk-17-jre
-        state: present
+  tasks: 
+    - name: install java
+      ansible.builtin.shell: 
+        name: openjdk-11-jre
+      
+    -name: install gpg key
+      ansible.buildin.apt_key:
+      url: https://pkg.jenkins.io/debian-stable/jenkins.io.key
+      keyring: /etc/apt/keyrings/jenkins.gpg
 
-    - name: install jenkins gpg key
-      ansible.builtin.apt_key:
-        url: https://pkg.jenkins.io/debian/jenkins.io.key
-        state: present
-
-    - name: add jenkins repository
+    - name: Add specified repository into sources list
       ansible.builtin.apt_repository:
-        repo: deb https://pkg.jenkins.io/debian-stable binary/
-        state: present
+      repo: deb https://pkg.jenkins.io/debian-stable binary
+    
+    - name: apt-get update
+      ansible.builtin.shell: sudo apt-get update
 
-    - name: install jenkins
+    - name: Install the package "Jenkins"
       ansible.builtin.apt:
-        name: jenkins
-        state: present
+        name: 
+          - sudo apt-get install jenkins
+        state: latest
 
-    - name: check if Jenkins is installed #check if docker is running
-      ansible.builtin.service:
-        register: Jenkins
+    - name: check if jenkins components are installed
+      ansible.builtin.shell: dpkg -l 'jenkins' 
+      register: Jenkins
       failed_when: Jenkins.stderr != ''
       changed_when: false
-
-    - name: print message #Check message
-      ansible.builtin.debug:
-        msg: "Jenkins is installed."
-
-    - name: Start Jenkins #Start Jenkins
-      ansible.builtin.service:
-        name: jenkins
-        state: started
-
-    - name: check if Jenkins is running #check if Jenkins is running
-      ansible.builtin.service:
-        name: Jenkins
-        state: started
-
-    - name: print message #Check message
-      ansible.builtin.debug:
-        msg: "Jenkins has been started."
-
-    - name: Check Jenkins status #Check if Jenkins running properly
-      ansible.builtin.shell: systemctl status jenkins
-      register: jenkins_status
-      failed_when: jenkins_status.stderr != ''
-
-    - name: check if Jenkins running properly #check if Jenkins running properly
-      ansible.builtin.shell: systemctl status jenkins
-      register: jenkins_status
-      failed_when: jenkins_status.stderr != ''
-      changed_when: false
-
-    - name: print message #Check message
-      ansible.builtin.debug:
-        msg: "Jenkins is running properly."
-
-    - name: Print initial admin password #Printing the initial admin password
-      ansible.builtin.shell: cat /var/lib/jenkins/secrets/initialAdminPassword
-      register: initial_password
-
-    - name: Print message #Printing the inital admin password
-      ansible.builtin.debug:
-        msg: "Jenkins is installed and configured correctly. The initial admin password is {{ initial_password.stdout }}"
