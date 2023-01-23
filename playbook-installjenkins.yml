@@ -1,0 +1,17 @@
+---
+- name: Install Jenkins on a Virtual Machine
+  hosts: all
+  become: true
+  tasks:
+  - name: Update package list
+    apt: update_cache=yes
+  - name: Install Java
+    apt: name=default-jdk state=present
+  - name: Add Jenkins Repository
+    apt_repository:
+      repo: deb https://pkg.jenkins.io/debian binary/
+      state: present
+  - name: Install Jenkins
+    apt: name=jenkins state=present
+  - name: Start Jenkins Service
+    service: name=jenkins state=started
