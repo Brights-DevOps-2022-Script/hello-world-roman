@@ -9,7 +9,7 @@
     apt: name=default-jdk state=present
   - name: Add Jenkins Repository
     apt_repository:
-      repo: deb https://pkg.jenkins.io/debian binary/
+      repo: deb https://pkg.jenkins.io/debian-stable binary/
       state: present
   - name: Install Jenkins
     apt: name=jenkins state=present
