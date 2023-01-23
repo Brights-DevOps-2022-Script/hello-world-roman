@@ -5,25 +5,20 @@
     - name: install java
       ansible.builtin.shell: 
         name: openjdk-11-jre
-      
     - name: install gpg key
       ansible.buildin.apt_key:
       url: https://pkg.jenkins.io/debian-stable/jenkins.io.key
       keyring: /etc/apt/keyrings/jenkins.gpg
-
     - name: Add specified repository into sources list
       ansible.builtin.apt_repository:
-      repo: deb https://pkg.jenkins.io/debian-stable binary
-    
+      repo: deb https://pkg.jenkins.io/debian-stable binary    
     - name: apt-get update
       ansible.builtin.shell: sudo apt-get update
-
     - name: Install the package "Jenkins"
       ansible.builtin.apt:
         name: 
           - sudo apt-get install jenkins
         state: latest
-
     - name: check if jenkins components are installed
       ansible.builtin.shell: dpkg -l 'jenkins' 
       register: Jenkins
