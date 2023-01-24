@@ -70,7 +70,7 @@
      password: "{{ adminpwd.stdout }}"
 
   - name: install plugin
-    jenkins_plugin:
+    community.general.jenkins_plugin:
      name: "{{ item }}"
      state: latest
      url_username: admin
