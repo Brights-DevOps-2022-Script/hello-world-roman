@@ -34,7 +34,7 @@
       name: jenkins
       state: started
 
- - name: read admin pwd
+  - name: read admin pwd
     shell: cat /var/lib/jenkins/secrets/initialAdminPassword
     register: adminpwd
 
