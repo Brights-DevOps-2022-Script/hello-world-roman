@@ -1,17 +1,23 @@
----
-- name: Install Jenkins on a Virtual Machine
-  hosts: all
+- hosts: all
+  name: install jenkins on VM
   become: true
   tasks:
-  - name: Update package list
-    apt: update_cache=yes
-  - name: Install Java
-    apt: name=default-jdk state=present
-  - name: Add Jenkins Repository
-    apt_repository:
-      repo: deb https://pkg.jenkins.io/debian-stable binary/
-      state: present
-  - name: Install Jenkins
-    apt: name=jenkins state=present
-  - name: Start Jenkins Service
-    service: name=jenkins state=started
+    - name: install dependencies
+      ansible.builtin.apt:
+        name: openjdk-17-jre
+        state: present
+
+    - name: install jenkins gpg key
+      ansible.builtin.apt_key:
+        url: https://pkg.jenkins.io/debian/jenkins.io.key
+        state: present
+
+    - name: add jenkins repository
+      ansible.builtin.apt_repository:
+        repo: deb https://pkg.jenkins.io/debian-stable binary/
+        state: present
+
+    - name: install jenkins
+      ansible.builtin.apt:
+        name: jenkins
+        state: present
