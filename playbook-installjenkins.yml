@@ -2,7 +2,7 @@
   hosts: VM
   become: yes
   vars: 
-    user_pwd: hieristeinpasswort1234
+    admin_user_pass: hieristeinpasswort1234
   tasks:
 
   - name: install dependencies
