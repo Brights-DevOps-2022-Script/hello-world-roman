@@ -40,6 +40,7 @@
 
   - name: unlock and add admin user
     jenkins_script:
+     url: http://20.113.26.169:8080/
      script: |
       import jenkins.model.*
       import hudson.security.*
@@ -58,6 +59,7 @@
 
   - name: complete setup wizard
     jenkins_script:
+     url: http://20.113.26.169:8080/
      script: |
       import static jenkins.model.Jenkins.instance as jenkins
       import jenkins.install.InstallState
