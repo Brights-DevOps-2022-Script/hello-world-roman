@@ -71,8 +71,14 @@
 
   - name: install plugin
     community.general.jenkins_plugin:
-     name: "{{ item }}"
+     name: "docker"
      state: latest
-     url_username: admin
-     url_password: "{{ adminpwd.stdout }}"
-    with_items: "{{ jenkins_plugins }}"
+     url_username: jenkins
+     url_password: "{{ admin_user_pass }}"
+
+  - name: docker pipeline
+    community.general.jenkins_plugin:
+     name: "Docker Pipeline"
+     state: latest
+     url_username: jenkins
+     url_password: "{{ admin_user_pass }}"
