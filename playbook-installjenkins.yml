@@ -38,4 +38,5 @@
 
   - name: Login to Jenkins
     jenkins_script:
+      url: http://20.113.26.169:8080/
       script: "println(jenkins.securityRealm.createAccount('admin', '{{ initial_password.stdout }}'))"
