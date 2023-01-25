@@ -2,6 +2,10 @@
 - hosts: all
   become: yes
   tasks:
-    - name: Print debug message
-      debug:
-      msg: Hello, world!
+    # - name: Print debug message
+    #   debug:
+    #   msg: Hello, world!
+
+    -name: shell command test
+    ansible.builtin.shell:
+      cmd: whoami
