@@ -2,7 +2,6 @@
 - hosts: all
   become: yes
   tasks:
-    - name: copy file
-      ansible.builtin.copy:
-        src: ./etc/thisisatest.txt
-        dest: /etc/thisisiatest.txt
+    - name: Print debug message
+      debug:
+      msg: Hello, world!

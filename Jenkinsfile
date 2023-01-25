@@ -18,7 +18,7 @@ pipeline {
                 sh "ansible-galaxy --version"
                 sh "ansible-galaxy collection install community.general"
                 sh "apk add --update --no-cache openssh sshpass"
-                sh "ansible-playbook -vvv -i list.host -e ansible_ssh_pass=$ANSIBLE_KEY_PSW --ssh-common-args='-o StrictHostKeyChecking=no' playbook-installjenkins.yml"
+                sh "ansible-playbook -i list.host -e ansible_ssh_pass=$ANSIBLE_KEY_PSW --ssh-common-args='-o StrictHostKeyChecking=no' playbook-b.yml"
             }
         }
     }
