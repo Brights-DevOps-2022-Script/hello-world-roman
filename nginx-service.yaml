@@ -2,11 +2,12 @@ Service yaml template:
 apiVersion: v1
 kind: Service
 metadata:
-  name: my-service
+  name: roman-service
+  namespace: romanginx
 spec:
   selector:
-    app: nginx
+    app: romanginx
   ports:
     - protocol: TCP
       port: 80
-      targetPort: 8080
+      targetPort: 8081
